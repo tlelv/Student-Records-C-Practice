@@ -1,0 +1,3 @@
+/Users/treysonle/CLionProjects/Topic5Le/cmake-build-debug/CMakeFiles/Topic5Le.dir
+/Users/treysonle/CLionProjects/Topic5Le/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/treysonle/CLionProjects/Topic5Le/cmake-build-debug/CMakeFiles/rebuild_cache.dir
