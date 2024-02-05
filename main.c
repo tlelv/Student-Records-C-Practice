@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 typedef struct Record {
     char userName[100];
@@ -29,6 +30,19 @@ int displayMenu() {
     return myNum;
 }
 
+int findRecord(Record node) {
+    Record *student = head;
+    int checkStatus = 0;
+
+    while (student != NULL) {
+        if (node.userID == student->userID) {
+            checkStatus = 1;
+        }
+        student = student->next;
+    }
+    return checkStatus;
+}
+
 void addRecord() {
     char name[100];
     char userAverage;
@@ -38,31 +52,36 @@ void addRecord() {
     Record *student = malloc(sizeof(Record));
 
     printf("\nEnter Name: ");
-    scanf("%s", name);
-
-    printf("\nEnter ID: ");
-    scanf("%d", &userID);
-
-    //BUG - Skips Average
-    printf("\nEnter Average: ");
-    scanf("%c", &userAverage);
-
-    printf("\nEnter Major: ");
-    scanf("%s", userMajor);
-
+    scanf(" %s", name);
     strcpy (student->userName, name);
-    student->userID = userID;
-    student->userAverage = userAverage;
-    strcpy (student->userMajor, userMajor);
 
-    student->next = head;
-    head = student;
-};
+    printf("Enter ID: ");
+    scanf(" %d", &userID);
+    student->userID = userID;
+    if (findRecord(*student) == 1) {
+        printf("Record already exists\n");
+        printf("\n");
+    }
+    else {
+        printf("Enter Average: ");
+        scanf(" %c", &userAverage);
+        student->userAverage = userAverage;
+
+        printf("Enter Major: ");
+        scanf(" %s", userMajor);
+        strcpy (student->userMajor, userMajor);
+
+        printf("\n");
+        student->next = head;
+        head = student;
+    }
+}
 
 void displayRecord() {
     Record *student = head;
+    printf("\n");
     if (student == NULL) {
-        printf("No records found");
+        printf("\nNo records found\n");
     }
     while (student != NULL) {
         printf("%s, ", student->userName);
@@ -87,6 +106,6 @@ int main() {
             myNum = displayMenu();
         }
     }
-    //free(Record);
+    free(head);
     return 0;
 }
